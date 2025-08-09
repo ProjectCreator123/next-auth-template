@@ -3,12 +3,17 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "@/app/context/AuthContext";
+import { ThemeProvider } from "@/app/context/ThemeContext";
+import { ToastProvider } from "@/app/components/ui/Toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard",
-  description: "Admin template with Next.js",
+  title: "AdminPro - Modern Dashboard Template",
+  description: "Professional React admin dashboard template with Next.js, TypeScript, and Tailwind CSS",
+  keywords: "admin dashboard, react template, next.js, typescript, tailwind css",
+  authors: [{ name: "AdminPro Team" }],
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
@@ -17,11 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`}>
+        <ThemeProvider>
+          <ToastProvider>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

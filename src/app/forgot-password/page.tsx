@@ -1,40 +1,12 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
+import ForgotPasswordForm from "@/app/components/forms/ForgotPasswordForm";
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Reset password for:', email);
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6">Forgot Password</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="w-full p-2 border border-gray-300 rounded"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-          >
-            Send Reset Link
-          </button>
-        </form>
-        <div className="mt-4 text-center">
-          <Link href="/login" className="text-blue-500 hover:underline">
-            Back to Login
-          </Link>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <ForgotPasswordForm />
       </div>
     </div>
   );

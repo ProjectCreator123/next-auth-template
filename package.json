@@ -1,12 +1,43 @@
 {
-  "name": "admin-template",
-  "version": "0.1.0",
-  "private": true,
+  "name": "adminpro-dashboard",
+  "version": "2.0.0",
+  "description": "Professional React Admin Dashboard Template with Next.js, TypeScript, and Tailwind CSS",
+  "keywords": [
+    "admin dashboard",
+    "react template",
+    "next.js",
+    "typescript",
+    "tailwind css",
+    "admin panel",
+    "dashboard template",
+    "react admin",
+    "themeforest",
+    "ui kit"
+  ],
+  "author": {
+    "name": "AdminPro Team",
+    "email": "support@adminpro.com",
+    "url": "https://adminpro.com"
+  },
+  "license": "MIT",
+  "homepage": "https://adminpro.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adminpro/dashboard-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adminpro/dashboard-template/issues"
+  },
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "preview": "next build && next start",
+    "clean": "rm -rf .next out dist"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",
