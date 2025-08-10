@@ -15,14 +15,18 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('system');
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Get theme from localStorage or default to system
-    const savedTheme = localStorage.getItem('theme') as Theme || 'system';
+    const savedTheme = (localStorage.getItem('theme') as Theme) || 'system';
     setTheme(savedTheme);
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const updateTheme = () => {
       let shouldBeDark = false;
 
@@ -36,15 +40,22 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       }
 
       setIsDark(shouldBeDark);
-      
+
+      // Apply theme to document
+      const root = document.documentElement;
       if (shouldBeDark) {
-        document.documentElement.classList.add('dark');
+        root.classList.add('dark');
+        root.style.colorScheme = 'dark';
       } else {
-        document.documentElement.classList.remove('dark');
+        root.classList.remove('dark');
+        root.style.colorScheme = 'light';
       }
 
       // Save to localStorage
       localStorage.setItem('theme', theme);
+
+      // Debug log
+      console.log('Theme updated:', { theme, shouldBeDark, classList: root.classList.toString() });
     };
 
     updateTheme();
@@ -59,7 +70,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme]);
+  }, [theme, mounted]);
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return <>{children}</>;
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, isDark }}>

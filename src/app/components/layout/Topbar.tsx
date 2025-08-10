@@ -104,6 +104,7 @@ const Topbar = () => {
                     <button
                       key={option.value}
                       onClick={() => {
+                        console.log('Theme button clicked:', option.value);
                         setTheme(option.value as 'light' | 'dark' | 'system');
                         setShowThemeMenu(false);
                       }}
